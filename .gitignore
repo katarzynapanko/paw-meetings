@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/PawsMeetings/bin/Debug/net6.0
+/src/.vs
+/src/PawsMeetings/obj
+/src/PetsFile/obj
+/src/PetsFile/bin/Debug/net6.0
+/src/PetsFile.Application/bin/Debug/net6.0
+/src/PetsFile.Application/obj
+/src/PetsFile.DataSeeder/obj
+/src/PetsFile.Domain/bin/Debug/net6.0
+/src/PetsFIle.Infrastructure/bin/Debug/net6.0
+/src/PetsFIle.Infrastructure/obj
