@@ -40,5 +40,13 @@ namespace PetsFile.Pets.Controllers
                 : Problem(string.Join(',', operationResult.Errors.Select(z => z.Message)),
                     statusCode: (int)HttpStatusCode.InternalServerError);
         }
+
+        [HttpGet("get-pets")]
+        public async Task<IActionResult> GetPets()
+        {
+            var query = new GetPetQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }
