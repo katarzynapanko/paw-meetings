@@ -48,5 +48,13 @@ namespace PetsFile.Pets.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("{ownerId}/match-pets/{petId}")]
+        public async Task<IActionResult> MatchPets(Guid petId, Guid ownerId)
+        {
+            var query = new MatchPetQuery(petId, ownerId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }
