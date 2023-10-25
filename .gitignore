@@ -14,3 +14,17 @@
 /src/PetsFIle.Infrastructure/bin/Debug/net6.0
 /src/PetsFIle.Infrastructure/obj
 /src/PetsFile.Domain/obj
+/src/PetsFIle.Infrastructure/PetsMetadata/Database/TraitWriterSql.cs
+/src/PetsFIle.Infrastructure/PetsMetadata/Database/TraitReaderSql.cs
+/src/PetsFIle.Infrastructure/PetsMetadata/Database/PetTypeWriterSql.cs
+/src/PetsFIle.Infrastructure/PetsMetadata/Database/PetTypeReaderSql.cs
+/src/PetsFIle.Infrastructure/Pets/Database/PetWriterSql.cs
+/src/PetsFIle.Infrastructure/Pets/Database/PetReaderSql.cs
+/src/PetsFIle.Infrastructure/Owners/Database/OwnerWriterSql.cs
+/src/PetsFIle.Infrastructure/Owners/Database/OwnerReaderSql.cs
+/src/PetsFIle.Infrastructure/Owners/Database/OwnerAddressWriterSql.cs
+/src/PetsFIle.Infrastructure/Owners/Database/OwnerAddressReaderSql.cs
+/src/PetsFIle.Infrastructure/Matching/Database/PetMatchReaderSql.cs
+/src/PetsFIle.Infrastructure/Common/Database/DapperConnectionProvider.cs
+/src/PetsFile.Application/Common/Interfaces/IDapperConnectionProvider.cs
+/src/PetsFile.Application/Common/Config/DapperOptions.cs
