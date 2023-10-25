@@ -7,11 +7,11 @@ namespace PetsFile.Pets.Models
     {
         public Guid TypeId { get; set; }
         public Guid OwnerId { get; set; }
-        public Guid[] TraitId { get; set; } 
+        public Guid[] TraitId { get; set; } = Array.Empty<Guid>();
         public DateTime DateOfBirth { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public PetGender Gender { get; set; }
-        public IFormFile Photo { get; set; }
+        public IFormFile Photo { get; set; } = default!;
 
 
         public async Task<SavePetCommand> ToCommand()

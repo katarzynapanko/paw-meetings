@@ -8,8 +8,8 @@ namespace PetsFile.Application.Pets.Messages.Commands
     public record SavePetCommand(DateTime DateOfBirth, string Name,
         PetGender PetGender, Guid PetTypeId, Guid OwnerId, Guid[] TraitIds) : IRequest<Result>
     {
-        public Stream PhotoStream { get; private set; }
-        public string Path { get; private set; }
+        public Stream? PhotoStream { get; private set; }
+        public string Path { get; private set; } = string.Empty;
 
         public async Task AddPhoto(IFormFile photo)
         {
