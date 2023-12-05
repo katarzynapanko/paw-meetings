@@ -1,4 +1,6 @@
 ﻿
+using PetsFile.Domain.Pets.ValueObjects;
+
 namespace PetsFile.Domain.Owners.Entities
 {
     public class OwnerAddress
@@ -11,7 +13,7 @@ namespace PetsFile.Domain.Owners.Entities
         public string Country { get; init; } = string.Empty;
         public string PostalCode { get; init; } = string.Empty;
 
-        public Guid OwnerId { get; init; }
+        public OwnerId OwnerId { get; init; }
         public Owner Owner { get; init; } = default!;
 
         public OwnerAddress()

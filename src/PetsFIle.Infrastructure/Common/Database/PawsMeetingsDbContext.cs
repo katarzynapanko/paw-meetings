@@ -2,7 +2,9 @@
 using PetsFile.Domain.Matching.Entities;
 using PetsFile.Domain.Owners.Entities;
 using PetsFile.Domain.Pets.Entities;
+using PetsFile.Domain.Pets.ValueObjects;
 using PetsFile.Domain.PetsMetadata.Entities;
+using PetsFIle.Infrastructure.Common.Configurations;
 
 namespace PetsFIle.Infrastructure.Common.Database
 {
@@ -43,6 +45,15 @@ namespace PetsFIle.Infrastructure.Common.Database
             modelBuilder.Entity<PetTrait>().HasData(DataGenerator.GeneratePetTrait(petIds, traitIds));
             modelBuilder.Entity<PetBlackList>().HasData(DataGenerator.GeneratePetBlackList(petIds, petTypeIds));
             modelBuilder.Entity<OwnerBlackList>().HasData(DataGenerator.GenerateOwnerBlackList(ownerIds, petTypeIds));
+            _ = modelBuilder.ApplyConfiguration(new OwnerEntityTypeConfiguration());
+            _ = modelBuilder.ApplyConfiguration(new PetEntityTypeConfiguration());
+            _ = modelBuilder.ApplyConfiguration(new PetTypeEntityTypeConfiguration());
+            _ = modelBuilder.ApplyConfiguration(new TraitEntityTypeConfiguration());
+            _ = modelBuilder.ApplyConfiguration(new OwnerBlackListEntityTypeConfiguration());
+            _ = modelBuilder.ApplyConfiguration(new PetBlackListEntityTypeConfiguration());
+            _ = modelBuilder.ApplyConfiguration(new OwnerAddressEntityTypeConfiguration());
+            _ = modelBuilder.ApplyConfiguration(new PetTraitEntityTypeConfiguration());
+
         }
     }
 }

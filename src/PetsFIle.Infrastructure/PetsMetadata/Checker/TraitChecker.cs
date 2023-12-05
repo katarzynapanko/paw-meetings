@@ -1,4 +1,5 @@
 ﻿using PetsFile.Application.PetsMetadata.Interfaces;
+using PetsFile.Domain.Pets.ValueObjects;
 using PetsFIle.Infrastructure.Common.Database;
 
 namespace PetsFIle.Infrastructure.PetsMetadata.Checker
@@ -14,10 +15,13 @@ namespace PetsFIle.Infrastructure.PetsMetadata.Checker
 
         public bool CheckIfTraitExist(string traitName)
         {
+            // TODO: this can be made async
             return _dbContext.Traits.Any(x => x.Name == traitName);
         }
-        public bool CheckIfTraitIdExist(Guid[] traitIds)
+
+        public bool CheckIfTraitIdExist(TraitId[] traitIds)
         {
+            // TODO: this can be made async
             return _dbContext.Traits.Select(x => x.Id).Count(z => traitIds.Contains(z)) == traitIds.Length;
         }
     }

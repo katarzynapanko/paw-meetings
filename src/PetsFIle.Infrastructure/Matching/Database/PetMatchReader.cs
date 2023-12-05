@@ -4,6 +4,7 @@ using PetsFile.Application.Common.Config;
 using PetsFile.Application.Matching.Interfaces;
 using PetsFile.Application.Matching.Models;
 using PetsFile.Domain.Pets.Entities;
+using PetsFile.Domain.Pets.ValueObjects;
 using PetsFIle.Infrastructure.Common.Database;
 
 namespace PetsFIle.Infrastructure.Matching.Database
@@ -19,13 +20,20 @@ namespace PetsFIle.Infrastructure.Matching.Database
             _matchingOptions = matchingOptions.Value;
         }
 
-        public async Task<PetMatchingInfo> GetPetMatchingInfo(Guid petId, Guid ownerId, CancellationToken ct = default)
+        // TODO: wrap in try-catch
+        // TODO: change return type to Result
+        // TODO: Look up `Polly` and use it for basic retry policy - 1 retry attempt
+        public async Task<PetMatchingInfo> GetPetMatchingInfo(PetId petId, OwnerId ownerId, CancellationToken ct = default)
         {
-            var ownerBlackList = await _dbContext.OwnerBlackLists.Where(x => x.OwnerId == ownerId).Select(x => x.PetTypeId).ToArrayAsync();
+            var ownerBlackList = await _dbContext.OwnerBlackLists
+                .Where(x => x.OwnerId == ownerId)
+                .Select(x => x.PetTypeId)
+                .ToArrayAsync(cancellationToken: ct);
             return await _dbContext.Pets.Where(x => x.Id == petId)
                .Select(x => new PetMatchingInfo
                {
-                   OwnerAddresses = x.Owner.OwnerAddresses.ToList(),
+                   // TODO: only needs City, so how about fetching the city list only? Hint: use Select
+                   Cities = x.Owner.OwnerAddresses.Select(x => x.City).ToList(),
                    Traits = x.PetTraits.Select(x => x.TraitId).ToList(),
                    PetBlackList = x.PetBlackLists.Select(x => x.PetTypeId).ToList(),
                    OwnerBlackList = ownerBlackList
@@ -34,7 +42,7 @@ namespace PetsFIle.Infrastructure.Matching.Database
 
         public async Task<IEnumerable<Pet>> GetMatchingPets(PetMatchingInfo petMatchingInfo, CancellationToken ct = default)
         {
-            var citiesToMatchTo = petMatchingInfo.OwnerAddresses.Select(z => z.City).ToArray();
+            var citiesToMatchTo = petMatchingInfo.Cities.ToArray();
             return await _dbContext.Pets
                 .Where(pet => pet.Owner.OwnerAddresses.Select(address => address.City).Any(city => citiesToMatchTo.Contains(city)))
                 .Where(pet => pet.PetTraits.Select(petTrait => petTrait.TraitId).Count(traitId => petMatchingInfo.Traits.Contains(traitId)) >= 2 ||

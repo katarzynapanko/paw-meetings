@@ -1,8 +1,10 @@
-﻿namespace PetsFile.Domain.PetsMetadata.Entities
+﻿using PetsFile.Domain.Pets.ValueObjects;
+
+namespace PetsFile.Domain.PetsMetadata.Entities
 {
     public sealed class Trait
     {
-        public Guid Id { get; init; }
+        public TraitId Id { get; init; }
         public DateTime DateOfRegistration { get; init; }
         public string Name { get; init; } = string.Empty;
 

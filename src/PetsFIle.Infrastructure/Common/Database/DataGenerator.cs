@@ -1,19 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Collections.Generic;
-using System;
-using PetsFile.Domain.Pets.Enums;
-using PetsFile.Domain.Owners.Entities;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using AutoFixture;
-using PetsFile.Domain.Pets.Entities;
-using System.Diagnostics;
-using PetsFile.Domain.PetsMetadata.Entities;
+﻿using AutoFixture;
 using PetsFile.Domain.Matching.Entities;
+using PetsFile.Domain.Owners.Entities;
+using PetsFile.Domain.Pets.Entities;
+using PetsFile.Domain.Pets.Enums;
+using PetsFile.Domain.Pets.ValueObjects;
+using PetsFile.Domain.PetsMetadata.Entities;
 
 namespace PetsFIle.Infrastructure.Common.Database
 {
 
-    internal  class DataGenerator
+    internal  class DataGenerator 
     {
         private static string[] Names = { "Helen", "Coen", "Paula", "Micah", "Milena", "Beckett", "Amber", "Justice", "Hope",
             "Foster", "Chana", "Clark", "Avayah", "Briar", "Khalani", "Dane", "Leonard", "Demi", "Crosby", "Lu", "Emani" };
@@ -53,7 +49,7 @@ namespace PetsFIle.Infrastructure.Common.Database
             return traits;
         }
 
-        public static IEnumerable<PetTrait> GeneratePetTrait(Guid[] petIds, Guid[] traitIds) 
+        public static IEnumerable<PetTrait> GeneratePetTrait(PetId[] petIds, TraitId[] traitIds) 
         {
             var _petTraits = new List<PetTrait>();
             foreach (var petId in petIds)
@@ -90,7 +86,7 @@ namespace PetsFIle.Infrastructure.Common.Database
             return types;
         }
 
-        public static IEnumerable<Pet> GeneratePet(Guid[] ownerIds, Guid[] petTypeIds)
+        public static IEnumerable<Pet> GeneratePet(OwnerId[] ownerIds, PetTypeId[] petTypeIds)
         {
             const int numberOfTPets = 100;
             var pets = new List<Pet>(numberOfTPets);
@@ -112,7 +108,7 @@ namespace PetsFIle.Infrastructure.Common.Database
             return pets;
         }
 
-        public static IEnumerable<OwnerAddress> GenerateAddresses(Guid[] ownerIds)
+        public static IEnumerable<OwnerAddress> GenerateAddresses(OwnerId[] ownerIds)
         {
             var fixture = new Fixture();
             const int numberOfAddresses = 50;
@@ -161,7 +157,7 @@ namespace PetsFIle.Infrastructure.Common.Database
             return owners;
         }
 
-        public static IEnumerable<PetBlackList> GeneratePetBlackList(Guid[] petIds, Guid[] petTypeIds)
+        public static IEnumerable<PetBlackList> GeneratePetBlackList(PetId[] petIds, PetTypeId[] petTypeIds)
         {
             var numberOfEntries = petIds.Length / 2 + 1;
             var blacklist = new List<PetBlackList>(numberOfEntries);
@@ -189,7 +185,7 @@ namespace PetsFIle.Infrastructure.Common.Database
             return blacklist;
         }
 
-        public static IEnumerable<OwnerBlackList> GenerateOwnerBlackList(Guid[] ownerIds, Guid[] petTypeIds)
+        public static IEnumerable<OwnerBlackList> GenerateOwnerBlackList(OwnerId[] ownerIds, PetTypeId[] petTypeIds)
         {
             var numberOfOwners = (int)Math.Ceiling((double)ownerIds.Length / 2);
             var owners = new List<OwnerBlackList>(numberOfOwners);
