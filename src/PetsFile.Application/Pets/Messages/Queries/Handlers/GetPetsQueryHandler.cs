@@ -16,7 +16,7 @@ namespace PetsFile.Application.Pets.Messages.Queries.Handlers
 
         public async Task<Result<List<Pet>>> Handle(GetPetQuery request, CancellationToken cancellationToken)
         {
-            return await _petReader.GetAsync(request, cancellationToken);          
+            return await _petReader.GetAsync(cancellationToken);          
         }
     }
 }
