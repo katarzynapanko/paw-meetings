@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PetsFile.Domain.Matching.Entities;
 using PetsFile.Domain.Owners.Entities;
 using PetsFile.Domain.Pets.Entities;
-using PetsFile.Domain.Pets.ValueObjects;
 using PetsFile.Domain.PetsMetadata.Entities;
 using PetsFIle.Infrastructure.Common.Configurations;
 
 namespace PetsFIle.Infrastructure.Common.Database
 {
-    public sealed class PawsMeetingsDbContext : DbContext
+    public sealed class PawsMeetingsDbContext : IdentityDbContext<IdentityUser>
     {
         public PawsMeetingsDbContext(DbContextOptions<PawsMeetingsDbContext> options) : base(options) { }
 
@@ -53,7 +54,7 @@ namespace PetsFIle.Infrastructure.Common.Database
             _ = modelBuilder.ApplyConfiguration(new PetBlackListEntityTypeConfiguration());
             _ = modelBuilder.ApplyConfiguration(new OwnerAddressEntityTypeConfiguration());
             _ = modelBuilder.ApplyConfiguration(new PetTraitEntityTypeConfiguration());
-
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

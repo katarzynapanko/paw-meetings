@@ -13,6 +13,7 @@ namespace PetsFile.Domain.Owners.Entities
         public DateTime DateOfRegistration { get; init; }
         public string Email { get; init; } = string.Empty;
         public string Password { get; init; } = string.Empty;
+        public string UserId { get; init; } = string.Empty;
 
         public List<OwnerAddress> OwnerAddresses { get; init; } = new List<OwnerAddress>();
         public List<Pet> Pets { get; init; } = new List<Pet>();

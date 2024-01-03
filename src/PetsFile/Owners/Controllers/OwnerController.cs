@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PetsFile.Application.Owners.Messages.Commands;
 using PetsFile.Application.Owners.Messages.Queries;
+using System.Net;
 
 namespace PetsFile.Owners.Controllers
 {
@@ -22,17 +23,19 @@ namespace PetsFile.Owners.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterOwner(RegisterOwnerCommand owner)
         {
-            var result = await _validator.ValidateAsync(owner);
-            if (!result.IsValid)
+            var valudationResult = await _validator.ValidateAsync(owner);
+            if (!valudationResult.IsValid)
             {
-                foreach (var error in result.Errors)
+                foreach (var error in valudationResult.Errors)
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
                 return BadRequest(ModelState);
             }
-            await _mediator.Send(owner);
-            return Ok();
+            var result = await _mediator.Send(owner);
+            return result.IsSuccess
+                ? Ok()
+                : Problem(statusCode: (int)HttpStatusCode.InternalServerError);
         }
 
         [HttpGet("get-owners")]

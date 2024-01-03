@@ -16,6 +16,8 @@ namespace PetsFile.Application.Owners.Messages.Commands
         public string City { get; init; } = string.Empty;
         public string Country { get; init; } = string.Empty;
         public string PostalCode { get; init; } = string.Empty;
+        private string _userId = string.Empty;
+        public string UserId { get => _userId; init => _userId = value; }
 
         public Owner ToOwner()
         {
@@ -26,7 +28,8 @@ namespace PetsFile.Application.Owners.Messages.Commands
                 Email = Email,
                 Password = Password,
                 Name = Name,
-                Surname = Surname
+                Surname = Surname,
+                UserId = UserId
             };
             owner.OwnerAddresses.Add(new OwnerAddress
             {
@@ -38,6 +41,11 @@ namespace PetsFile.Application.Owners.Messages.Commands
                 OwnerId = owner.Id
             });
             return owner;
+        }
+
+        public void SetUserId(string userId)
+        {
+            _userId = userId;
         }
     }
 }
